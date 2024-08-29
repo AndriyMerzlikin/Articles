@@ -1,5 +1,19 @@
-import { ReturnDocument } from "mongodb";
+// import { ReturnDocument } from "mongodb";
 import Post from "../models/postModel.js";
+
+export const getLasttags = async (req, res) => {
+  try {
+    const posts = await Post.find().limit(5).exec();
+    const tags = posts
+      .map((obj) => obj.tags)
+      .flat()
+      .slice(0, 5);
+    res.json(tags);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Failed getting tags!" });
+  }
+};
 
 export const getAll = async (req, res) => {
   try {
@@ -19,7 +33,7 @@ export const getOne = async (req, res) => {
       { _id: postId },
       { $inc: { viewsCount: 1 } },
       { returnDocument: "after" }
-    );
+    ).populate("user");
 
     if (!doc) {
       return res.status(404).json({ message: "Post not found!" });
