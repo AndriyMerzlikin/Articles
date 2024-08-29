@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path";
 import multer from "multer";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -76,6 +77,15 @@ app.post(
 );
 app.delete("/posts/:id", checkAuth, remove);
 app.patch("/posts/:id", checkAuth, handleValidationErrors, update);
+
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "mern-blog-frontend/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(
+    path.resolve(__dirname, "mern-blog-frontend", "build", "index.html")
+  );
+});
 
 app.listen(port, () =>
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`)
