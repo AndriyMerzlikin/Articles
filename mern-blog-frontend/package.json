@@ -26,7 +26,7 @@
     "sass": "^1.52.1",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "http://AndriyMerzlikin.github.io/Articles",
+  "homepage": "http://AndriyMerzlikin.github.io/Articles/mern-blog-frontend",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
