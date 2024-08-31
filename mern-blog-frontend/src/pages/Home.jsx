@@ -20,9 +20,14 @@ export const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("API URL:", process.env.REACT_APP_API_URL);
     dispatch(fetchPosts());
     dispatch(fetchTags());
   }, [dispatch]);
+
+  useEffect(() => {
+    console.log("Posts:", posts.items); // Перевіряйте структуру та тип даних
+  }, [posts.items]);
 
   return (
     <>
